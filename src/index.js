@@ -11,8 +11,17 @@ const contentDisposition = require('content-disposition');
 const request = require('request-promise');
 
 const main = async function() {
-  const ids = [
-  ];
+
+  const configPath = path.resolve(process.cwd(), 'config.json');
+  if (!fs.existsSync(configPath)) {
+    console.log(`Did not find config file at '${configPath}`);
+    return;
+  }
+
+  const configData = fs.readFileSync(configPath, 'utf8');
+  const config = JSON.parse(configData);
+
+  const ids = config.pages;
 
   const docBuffers = [];
   const format = 'pdf';
@@ -40,7 +49,7 @@ const main = async function() {
 
     const filename = `${num}--${sanitize(parsed.parameters.filename)}`;
 
-    const outDir = path.resolve(process.cwd(), 'dl');
+    const outDir = path.resolve(process.cwd());
     const outPath = path.resolve(outDir, filename);
 
     if (!fs.existsSync(outDir)) {
@@ -74,12 +83,12 @@ const main = async function() {
 
   });
 
-  const outputFile = path.resolve(process.cwd(), 'dl', `merged-output.${format}`);
+  const outputFile = path.resolve(process.cwd(), `merged-output.${format}`);
   pdfMerge([...mergedSortedBuffers], outputFile, (err) => {
     if (err) {
       console.log(outputFile);
       console.log("ERROR OCCURRED");
-      //console.log(err);
+      console.log(err);
       return;
     }
     console.log("Done!");
