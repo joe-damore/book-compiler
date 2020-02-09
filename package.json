@@ -1,0 +1,18 @@
+{
+  "name": "book-compiler",
+  "version": "0.1.0",
+  "description": "Book compiler for Ryan",
+  "main": "src/index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "commander": "^4.1.1",
+    "content-disposition": "^0.5.3",
+    "csv": "^5.3.1",
+    "docx-merger": "^1.2.2",
+    "easy-pdf-merge": "^0.2.2",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "sanitize-filename": "^1.6.3"
+  }
+}
